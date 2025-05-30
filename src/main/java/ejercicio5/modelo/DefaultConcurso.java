@@ -39,19 +39,19 @@ public class DefaultConcurso implements Concurso {
 
     @Override
     public void inscribirParticipante(Participante participante, LocalDate fechaInscripcion) {
-        if (fechaValida(fechaInscripcion)) {
-            if (!(participanteInscripto(participante))) {
-                inscriptos.add(participante);
-                DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                String text = fechaInscripcion.format(format) + ", " + participante.id() + ", " + id;
-                registroInscripto.registro(fechaInscripcion, participante.id(), this.id);
-//                servicioMail.sendMail(participante.nombre(), nombre);
-                if (fechaInscripcion.equals(fechaAbiertoInscripcion))
-                    participante.sumarPuntos(10);
-            } else
-                throw new RuntimeException("Participante ya inscripto");
-        } else
+        if (!fechaValida(fechaInscripcion)) {
             throw new IllegalArgumentException("Fecha fuera del limite");
+        }
+        if (participanteInscripto(participante)) {
+            throw new RuntimeException("Participante ya inscripto");
+        }
+        inscriptos.add(participante);
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String text = fechaInscripcion.format(format) + ", " + participante.id() + ", " + id;
+        registroInscripto.registro(fechaInscripcion, participante.id(), this.id);
+//                servicioMail.sendMail(participante.nombre(), nombre);
+        if (fechaInscripcion.equals(fechaAbiertoInscripcion))
+            participante.sumarPuntos(10);
     }
 
     public boolean isEqualOrAfter(LocalDate l1, LocalDate l2) {

@@ -19,6 +19,6 @@ public class ConEnvioMail implements Concurso {
 
     @Override
     public String nombre() {
-        return "";
+        return concurso.nombre();
     }
 }
