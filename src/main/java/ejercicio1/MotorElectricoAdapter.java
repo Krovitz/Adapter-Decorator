@@ -1,9 +1,9 @@
 package ejercicio1;
 
-public class MotorAdapter implements Motor {
+public class MotorElectricoAdapter implements Motor {
     private Electrico motorElectrico;
 
-    public MotorAdapter(Electrico motorElectrico) {
+    public MotorElectricoAdapter(Electrico motorElectrico) {
         this.motorElectrico = motorElectrico;
     }
 
